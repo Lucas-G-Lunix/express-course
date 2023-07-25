@@ -1,13 +1,27 @@
 const express = require('express')
 const morgan = require('morgan')
+const path = require('path')
+const ejs = require('ejs')
 
 const app = express()
+// const HomeRoutes = require('./routes/home')
+// const UserRoutes = require('./routes/user')
+
+const HomeRoutes = require('./routes/userRouterMethod')
+const UserRoutes = require('./routes/homeRouterMethod')
+
 
 app.use(morgan('dev'))
+app.use(express.json())
+app.set('view engine', 'ejs')
+app.use(HomeRoutes)
+app.use(UserRoutes)
 
-app.get('/dashboard', (req, res) =>{
-  res.send('dashboard page')
-})
+// HomeRoutes(app)
+// UserRoutes(app)
+
+
+// app.use('/public', express.static(path.join(__dirname, 'public')))
 
 app.listen(3000)
 console.log(`Server on port ${3000}`)
@@ -151,7 +165,7 @@ console.log(`Server on port ${3000}`)
 // const fs = require('fs')
 //
 // const server = http.createServer((req, res) => {
-//     const read = fs.createReadStream('./static/index.html')
+//     const read = fs.createReadStream('./public/index.ejs')
 //     read.pipe(res)
 // })
 //
